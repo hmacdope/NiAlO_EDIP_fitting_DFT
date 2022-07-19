@@ -1,0 +1,23 @@
+Warning: no access to tty (Inappropriate ioctl for device).
+Thus no job control in this shell.
+Loading vasp/6.2.1
+  Loading requirement: openmpi/4.1.0
+Warning: ieee_invalid is signaling
+Warning: ieee_divide_by_zero is signaling
+Warning: ieee_overflow is signaling
+Warning: ieee_underflow is signaling
+Warning: ieee_inexact is signaling
+FORTRAN STOP
+
+======================================================================================
+                  Resource Usage on 2022-04-24 18:34:32:
+   Job Id:             38941378.gadi-pbs
+   Project:            y35
+   Exit Status:        0
+   Service Units:      1.05
+   NCPUs Requested:    12                     NCPUs Used: 12              
+                                           CPU Time Used: 00:01:44                                   
+   Memory Requested:   96.0GB                Memory Used: 1.47GB          
+   Walltime requested: 08:00:00            Walltime Used: 00:01:45        
+   JobFS requested:    250.0MB                JobFS used: 8.07MB          
+======================================================================================

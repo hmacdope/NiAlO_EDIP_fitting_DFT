@@ -1,0 +1,18 @@
+Warning: no access to tty (Inappropriate ioctl for device).
+Thus no job control in this shell.
+Loading vasp/6.2.1
+  Loading requirement: openmpi/4.1.0
+Terminated
+
+======================================================================================
+                  Resource Usage on 2022-04-23 21:13:41:
+   Job Id:             38887809.gadi-pbs
+   Project:            y35
+   Exit Status:        143 (Linux Signal 15 SIGTERM Termination)
+   Service Units:      34.71
+   NCPUs Requested:    12                     NCPUs Used: 12              
+                                           CPU Time Used: 00:57:31                                   
+   Memory Requested:   96.0GB                Memory Used: 5.86GB          
+   Walltime requested: 08:00:00            Walltime Used: 00:57:51        
+   JobFS requested:    250.0MB                JobFS used: 8.07MB          
+======================================================================================
