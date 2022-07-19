@@ -1,0 +1,26 @@
+SYSTEM = NiAl
+
+ISTART = 0
+EDIFF  = 5E-6
+NELMIN = 6
+ISIF   = 0
+NSW = 150
+IBRION=2
+POTIM=0.2
+IVDW=12
+
+#PREC=Accurate
+#ADDGRID=.TRUE.
+LWAVE=.FALSE.
+LCHARG=.FALSE.
+LREAL= Auto
+
+NCORE=1
+LPLANE=.TRUE.
+
+   ENCUT  =   360.00 eV
+
+ DOS related values
+   ISMEAR = 0
+   SIGMA = 0.05
+
