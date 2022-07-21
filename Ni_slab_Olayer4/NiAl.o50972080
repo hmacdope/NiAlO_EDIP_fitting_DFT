@@ -1,0 +1,16 @@
+Loading vasp/6.2.1
+  Loading requirement: openmpi/4.1.0
+=>> PBS: job killed: walltime 72027 exceeded limit 72000
+
+======================================================================================
+                  Resource Usage on 2022-07-13 22:06:47:
+   Job Id:             50972080.gadi-pbs
+   Project:            y35
+   Exit Status:        271 (Linux Signal 15 SIGTERM Termination)
+   Service Units:      720.38
+   NCPUs Requested:    12                     NCPUs Used: 12              
+                                           CPU Time Used: 20:00:16                                   
+   Memory Requested:   96.0GB                Memory Used: 14.73GB         
+   Walltime requested: 20:00:00            Walltime Used: 20:00:38        
+   JobFS requested:    250.0MB                JobFS used: 8.07MB          
+======================================================================================
