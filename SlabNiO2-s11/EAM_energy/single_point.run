@@ -1,3 +1,4 @@
+
 ################################################################################
 # LAMMPS input file                                                            #
 #                                                                              #
@@ -17,12 +18,12 @@ timestep   0.01
 
 # read data
 box tilt large
-#read_data SlabAlO2_s19_iter_last_no_ox_lmp.data 
+read_data SlabNiO2_s11_iter_last_no_ox_lmp.data 
 
 # pair potential
 
 pair_style eam/alloy
-#pair_coeff * * Mishin-Ni-Al-2009.eam.alloy Al 
+pair_coeff * * Mishin-Ni-Al-2009.eam.alloy Ni  
 
 # reporting
 
@@ -42,4 +43,3 @@ fix 1 all nve
 run  10000
 
 write_restart checkpoint.init
-
