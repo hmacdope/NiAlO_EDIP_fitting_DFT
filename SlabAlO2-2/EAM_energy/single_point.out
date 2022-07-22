@@ -1,0 +1,5 @@
+LAMMPS (24 Mar 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+ERROR: Min_style command before simulation box is defined (src/input.cpp:1578)
+Last command: min_style cg
