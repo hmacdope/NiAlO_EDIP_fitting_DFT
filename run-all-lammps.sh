@@ -6,7 +6,7 @@ for d in */ ; do
 	    cd "./EAM_energy"
 	    echo "doing EAM for"
 	    pwd
-	    lmp -in singlepoint.run > singlepoint.out
+	    lmp -in single_point.run > single_point.out
 	    cd ../
     fi
     cd ../
