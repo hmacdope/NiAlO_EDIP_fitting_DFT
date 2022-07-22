@@ -1,5 +1,11 @@
 LAMMPS (24 Mar 2022)
 OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/comm.cpp:98)
   using 1 OpenMP thread(s) per MPI task
-ERROR: Min_style command before simulation box is defined (src/input.cpp:1578)
-Last command: min_style cg
+Reading data file ...
+  orthogonal box = (0 0 0) to (14.5 14.5 14.5)
+  1 by 1 by 1 MPI processor grid
+  reading atoms ...
+  0 atoms
+  read_data CPU = 0.000 seconds
+ERROR: Incorrect args for pair coefficients (src/MANYBODY/pair_eam_alloy.cpp:108)
+Last command: pair_coeff * * Mishin-Ni-Al-2009.eam.alloy

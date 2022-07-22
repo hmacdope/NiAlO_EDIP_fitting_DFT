@@ -1,6 +1,7 @@
 LAMMPS (24 Mar 2022)
 OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/comm.cpp:98)
   using 1 OpenMP thread(s) per MPI task
+
 ################################################################################
 # LAMMPS input file                                                            #
 #                                                                              #
@@ -20,7 +21,7 @@ timestep   0.01
 
 # read data
 box tilt large
-read_data  AlO_2_iter_last_no_ox_lmp.data
+read_data AlO_2_iter_last_no_ox_lmp.data
 Reading data file ...
   orthogonal box = (0 0 0) to (16.198 16.198 16.198)
   1 by 1 by 1 MPI processor grid
@@ -57,9 +58,9 @@ Neighbor list info ...
 Per MPI rank memory allocation (min/avg/max) = 4.536 | 4.536 | 4.536 Mbytes
    Step          Temp          E_pair         E_mol          TotEng         Press     
          0   0             -859.7768       0             -859.7768       521.60793    
-Loop time of 3.061e-06 on 1 procs for 0 steps with 256 atoms
+Loop time of 3.017e-06 on 1 procs for 0 steps with 256 atoms
 
-98.0% CPU use with 1 MPI tasks x 1 OpenMP threads
+99.4% CPU use with 1 MPI tasks x 1 OpenMP threads
 
 Minimization stats:
   Stopping criterion = max iterations
@@ -78,7 +79,7 @@ Neigh   | 0          | 0          | 0          |   0.0 |  0.00
 Comm    | 0          | 0          | 0          |   0.0 |  0.00
 Output  | 0          | 0          | 0          |   0.0 |  0.00
 Modify  | 0          | 0          | 0          |   0.0 |  0.00
-Other   |            | 3.061e-06  |            |       |100.00
+Other   |            | 3.017e-06  |            |       |100.00
 
 Nlocal:            256 ave         256 max         256 min
 Histogram: 1 0 0 0 0 0 0 0 0 0
@@ -202,20 +203,20 @@ Per MPI rank memory allocation (min/avg/max) = 4.421 | 4.421 | 4.421 Mbytes
       9800   151.35455     -854.6769       0             -849.68805      4465.3627    
       9900   166.93942     -855.21136      0             -849.70881      4523.6251    
      10000   154.62314     -854.79414      0             -849.69755      4729.4902    
-Loop time of 5.21037 on 1 procs for 10000 steps with 256 atoms
+Loop time of 5.26642 on 1 procs for 10000 steps with 256 atoms
 
-Performance: 1658.232 ns/day, 0.014 hours/ns, 1919.250 timesteps/s
-99.8% CPU use with 1 MPI tasks x 1 OpenMP threads
+Performance: 1640.582 ns/day, 0.015 hours/ns, 1898.821 timesteps/s
+99.7% CPU use with 1 MPI tasks x 1 OpenMP threads
 
 MPI task timing breakdown:
 Section |  min time  |  avg time  |  max time  |%varavg| %total
 ---------------------------------------------------------------
-Pair    | 4.9038     | 4.9038     | 4.9038     |   0.0 | 94.12
+Pair    | 4.9533     | 4.9533     | 4.9533     |   0.0 | 94.06
 Neigh   | 0          | 0          | 0          |   0.0 |  0.00
-Comm    | 0.08522    | 0.08522    | 0.08522    |   0.0 |  1.64
-Output  | 0.17685    | 0.17685    | 0.17685    |   0.0 |  3.39
-Modify  | 0.021819   | 0.021819   | 0.021819   |   0.0 |  0.42
-Other   |            | 0.02265    |            |       |  0.43
+Comm    | 0.085319   | 0.085319   | 0.085319   |   0.0 |  1.62
+Output  | 0.18251    | 0.18251    | 0.18251    |   0.0 |  3.47
+Modify  | 0.022186   | 0.022186   | 0.022186   |   0.0 |  0.42
+Other   |            | 0.02307    |            |       |  0.44
 
 Nlocal:            256 ave         256 max         256 min
 Histogram: 1 0 0 0 0 0 0 0 0 0
@@ -231,5 +232,4 @@ Dangerous builds = 0
 
 write_restart checkpoint.init
 System init for write_restart ...
-
 Total wall time: 0:00:05
