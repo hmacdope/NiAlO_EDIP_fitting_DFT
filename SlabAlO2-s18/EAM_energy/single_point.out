@@ -26,9 +26,9 @@ Setting up cg style minimization ...
 Per MPI rank memory allocation (min/avg/max) = 4.505 | 4.505 | 4.505 Mbytes
    Step          Temp          E_pair         E_mol          TotEng         Press     
          0   0             -818.8522       0             -818.8522      -3040.5135    
-Loop time of 3.406e-06 on 1 procs for 0 steps with 252 atoms
+Loop time of 3.341e-06 on 1 procs for 0 steps with 252 atoms
 
-117.4% CPU use with 1 MPI tasks x 1 OpenMP threads
+119.7% CPU use with 1 MPI tasks x 1 OpenMP threads
 
 Minimization stats:
   Stopping criterion = max iterations
@@ -47,7 +47,7 @@ Neigh   | 0          | 0          | 0          |   0.0 |  0.00
 Comm    | 0          | 0          | 0          |   0.0 |  0.00
 Output  | 0          | 0          | 0          |   0.0 |  0.00
 Modify  | 0          | 0          | 0          |   0.0 |  0.00
-Other   |            | 3.406e-06  |            |       |100.00
+Other   |            | 3.341e-06  |            |       |100.00
 
 Nlocal:            252 ave         252 max         252 min
 Histogram: 1 0 0 0 0 0 0 0 0 0
@@ -167,20 +167,20 @@ Per MPI rank memory allocation (min/avg/max) = 4.39 | 4.39 | 4.39 Mbytes
       9800   158.33331     -814.05755      0             -808.92054     -3594.06      
       9900   158.24026     -814.05308      0             -808.91908     -3090.5351    
      10000   156.87156     -814.01394      0             -808.92435     -2682.6292    
-Loop time of 4.6807 on 1 procs for 10000 steps with 252 atoms
+Loop time of 4.6586 on 1 procs for 10000 steps with 252 atoms
 
-Performance: 1845.877 ns/day, 0.013 hours/ns, 2136.432 timesteps/s
-99.4% CPU use with 1 MPI tasks x 1 OpenMP threads
+Performance: 1854.634 ns/day, 0.013 hours/ns, 2146.568 timesteps/s
+99.6% CPU use with 1 MPI tasks x 1 OpenMP threads
 
 MPI task timing breakdown:
 Section |  min time  |  avg time  |  max time  |%varavg| %total
 ---------------------------------------------------------------
-Pair    | 4.3994     | 4.3994     | 4.3994     |   0.0 | 93.99
+Pair    | 4.3827     | 4.3827     | 4.3827     |   0.0 | 94.08
 Neigh   | 0          | 0          | 0          |   0.0 |  0.00
-Comm    | 0.057693   | 0.057693   | 0.057693   |   0.0 |  1.23
-Output  | 0.18397    | 0.18397    | 0.18397    |   0.0 |  3.93
-Modify  | 0.021774   | 0.021774   | 0.021774   |   0.0 |  0.47
-Other   |            | 0.01785    |            |       |  0.38
+Comm    | 0.057287   | 0.057287   | 0.057287   |   0.0 |  1.23
+Output  | 0.17664    | 0.17664    | 0.17664    |   0.0 |  3.79
+Modify  | 0.024254   | 0.024254   | 0.024254   |   0.0 |  0.52
+Other   |            | 0.01775    |            |       |  0.38
 
 Nlocal:            252 ave         252 max         252 min
 Histogram: 1 0 0 0 0 0 0 0 0 0
