@@ -63,3 +63,7 @@ print(df)
 df.to_csv("Combined_data.csv")
 df["EAM_Energies"].to_csv("EAM_energies.csv")
 df["DFT_Energies"].to_csv("DFT_energies.csv")
+
+with open("master_configs.xyz", 'w') as f:
+    for line in all_configs:
+        f.write(line)
