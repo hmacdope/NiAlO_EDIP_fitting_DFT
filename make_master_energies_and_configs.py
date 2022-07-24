@@ -56,8 +56,9 @@ for k,v in energies.items():
     dirs.append(k)
     e_eam.append(v)
 
-df = pd.DataFrame({"Dirs": dirs, "EAM_Energies": e_eam, "DFT_Energies": dft_energies})
+df = pd.DataFrame({"Species": dirs, "EAM_Energies": e_eam, "DFT_Energies": dft_energies})
 df["E_diff"] = df["DFT_Energies"] - df["EAM_Energies"]
+df = df.set_index("Species")
 print(df)
 
 df.to_csv("Combined_data.csv")
