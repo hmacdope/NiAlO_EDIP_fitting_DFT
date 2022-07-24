@@ -8,6 +8,7 @@ NSW = 40
 IBRION=2
 POTIM=0.2
 IVDW=12
+NELM   = 120
 
 #PREC=Accurate
 #ADDGRID=.TRUE.
