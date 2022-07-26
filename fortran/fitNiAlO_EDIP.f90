@@ -13,7 +13,7 @@ module fit
    integer::NConf
 
 contains
-
+   ! Read in the configurations
    subroutine LoadConfigs
       integer::i, k, l, badness
       character(len=8)::str
@@ -40,25 +40,29 @@ contains
       end do
       NConf = NConf - 1
       close (10)
+      
+      ! How many confs?
       print *, "NCONF FOUND"
       print *, NConf
       print *, ""
 
-      print *, "ENERGIES"
+      ! DFT energies
+      print *, "DFT ENERGIES"
       do i = 1, NConf
          print *, En(i)
       end do
       print *, ""
 
+      ! Read in EAM energies
       open (unit=10, file='EAM_energies.csv')
       read (10, *)
-      do i = 1, 91 
+      do i = 1, NConf 
          read (10, *) str, EAM(i)
       end do
       close (10)
 
       print *, " EAM ENERGIES"
-      do i = 1, 91
+      do i = 1, NConf
          print *, EAM(i)
       end do
       print *, ""
