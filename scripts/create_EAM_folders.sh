@@ -1,3 +1,5 @@
+cd ../DATA/
+
 for d in */ ; do
     echo "$d looking"
     cd $d

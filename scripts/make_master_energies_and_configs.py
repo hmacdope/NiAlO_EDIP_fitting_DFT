@@ -27,7 +27,7 @@ def extract_eam_energy():
     return eval
 
 
-
+os.chdir('../DATA')
 dirs = [d for d in os.listdir('.') if os.path.isdir(d) and d != '.git' ]
 dirs = sorted(dirs)
 
@@ -61,10 +61,10 @@ df["E_diff"] = df["DFT_Energies"] - df["EAM_Energies"]
 df = df.set_index("Species")
 print(df)
 
-df.to_csv("Combined_data.csv")
-df["EAM_Energies"].to_csv("EAM_energies.csv")
-df["DFT_Energies"].to_csv("DFT_energies.csv")
+df.to_csv("../output/Combined_data.csv")
+df["EAM_Energies"].to_csv("../output/EAM_energies.csv")
+df["DFT_Energies"].to_csv("../output/DFT_energies.csv")
 
-with open("master_configs.xyz", 'w') as f:
+with open("../output/master_configs.xyz", 'w') as f:
     for line in all_configs:
         f.write(line)
