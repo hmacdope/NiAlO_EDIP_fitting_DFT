@@ -150,7 +150,7 @@ contains
          if (NoDissoc .and. (i >= 36) .and. (i <= 82)) cycle
          if ((i == 83) .or. (i == 84)) lim = 6
          do i1 = 1, NAt(i)
-            if (lab(i1, i) /= 'N') cycle
+            if (lab(i1, i) /= 'O') cycle
             Z = 0
             do i2 = 1, NAt(i)
                if (lab(i2, i) == 'Ni') ty = 1
