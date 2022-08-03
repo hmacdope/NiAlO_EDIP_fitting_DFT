@@ -8,6 +8,8 @@ module fit
    real(kind=8), dimension(3, MaxAt, MaxConf)::x
    real(kind=8), dimension(3, 3, MaxConf)::Q
    real(kind=8), dimension(MaxConf)::En, model, target, EAM, VN
+   character(len=20), dimension(MaxConf)::confnames
+   logical, parameter::debug = .false.
    integer, dimension(MaxConf)::NAt
    character(len=2), dimension(MaxAt, MaxConf)::lab
    integer::NConf
@@ -46,24 +48,17 @@ contains
       print *, NConf
       print *, ""
 
-      ! DFT energies
-      print *, "DFT ENERGIES"
-      do i = 1, NConf
-         print *, En(i)
-      end do
-      print *, ""
-
-      ! Read in EAM energies
-      open (unit=10, file='EAM_energies.csv')
+      ! Read in traget energies
+      open (unit=10, file='V_energies.csv')
       read (10, *)
       do i = 1, NConf 
-         read (10, *) str, EAM(i)
+         read (10, *) confnames(i), target(i)
       end do
       close (10)
 
-      print *, " EAM ENERGIES"
+      print *, " NAME, DFT ENERGY, TARGET ENERGY"
       do i = 1, NConf
-         print *, EAM(i)
+         print *, confnames(i),  En(i),  target(i) 
       end do
       print *, ""
 
@@ -71,58 +66,7 @@ contains
       print *, ""
       print *, ""
 
-      target = 0
-
-
-      if (RefN2) then
-         ! Ni+N
-         target(1:4) = En(9:12) - (En(14) + En(31)*0.5) - (EAM(14) - EAM(9:12))
-         ! Al+N
-         target(5:8) = En(1:4) - (En(13) + En(31)*0.5) - (EAM(13) - EAM(1:4))
-         ! NiAl+N
-         target(9:12) = En(5:8) - (En(15) + En(31)*0.5) - (EAM(15) - EAM(5:8))
-         ! N2
-         target(13:16) = En(31:34) - (/2, 4, 4, 4/)*En(31)*0.5
-         ! slabs: Al+N
-         target(17:20) = En(17:20) - (En(16) + En(31)*0.5) - (EAM(16) - EAM(17:20))
-         target(21:24) = En(21:24) - (En(16) + 2*En(31)*0.5) - (EAM(16) - EAM(21:24))
-         ! slabs: Ni+N
-         target(25:28) = En(26:29) - (En(25) + En(31)*0.5) - (EAM(25) - EAM(26:29))
-         ! N2-short
-         target(29) = En(35) - 2*En(31)*0.5
-         ! slab-N2 scans:
-         target(30:53) = En(36:59) - (En(16) + 2*En(31)*0.5)
-         target(54:76) = En(60:82) - (En(25) + 2*En(31)*0.5)
-         ! AlN:
-         target(77:78) = En(83:84) - (2*En(13)/256.0_8 + 2*En(31)*0.5) - (2*EAM(13)/256.0_8 - EAM(30:31))
-         ! N2 clusters
-!  target(79:98)=En(85:104)- ...
-      else
-         ! Ni+N
-         target(1:4) = En(9:12) - (En(14) + En(30)) - (EAM(14) - EAM(9:12))
-         ! Al+N
-         target(5:8) = En(1:4) - (En(13) + En(30)) - (EAM(13) - EAM(1:4))
-         ! NiAl+N
-         target(9:12) = En(5:8) - (En(15) + En(30)) - (EAM(15) - EAM(5:8))
-         ! N2
-         target(13:16) = En(31:34) - (/2, 4, 4, 4/)*En(30)
-         ! slabs: Al+N
-         target(17:20) = En(17:20) - (En(16) + En(30)) - (EAM(16) - EAM(17:20))
-         target(21:24) = En(21:24) - (En(16) + 2*En(30)) - (EAM(16) - EAM(21:24))
-         ! slabs: Ni+N
-         target(25:28) = En(26:29) - (En(25) + En(30)) - (EAM(25) - EAM(26:29))
-         ! N2-short
-         target(29) = En(35) - 2*En(30)
-!write(*,*)target(13:16),target(29)
-!stop
-         ! slab-N2 scans:
-         target(30:53) = En(36:59) - (En(16) + 2*En(30))
-         target(54:76) = En(60:82) - (En(25) + 2*En(30))
-         ! AlN:
-         target(77:78) = En(83:84) - (2*En(13)/256.0_8 + 2*En(30)) - (2*EAM(13)/256.0_8 - EAM(30:31))
-         ! N2 clusters
-         target(79:98) = En(85:104) - 10*En(30)
-      end if
+      
    end subroutine LoadConfigs
 
    subroutine Energies(P2b, PZ, P3b)
@@ -137,6 +81,7 @@ contains
       integer::ty, ty2, lim
       character(len=10)::dts
       model = 0
+      if (debug) print *, "Computing Energies", ""
 !$OMP PARALLEL DO SCHEDULE(dynamic) PRIVATE(ty,ty2,lim,r,r1,r2,rv1,rv2,cth,dts,tau,Qz,Z,f,h)
       do i = 1, NConf
          ty = 0
@@ -155,7 +100,7 @@ contains
             do i2 = 1, NAt(i)
                if (lab(i2, i) == 'Ni') ty = 1
                if (lab(i2, i) == 'Al') ty = 2
-               if (lab(i2, i) == 'O') ty = 3 ! NOTE EDITED
+               if (lab(i2, i) == 'O') ty = 3 
                do l = -lim, lim
                   do m = -lim, lim
                      do n = -lim, lim
@@ -177,7 +122,7 @@ contains
             do i2 = 1, NAt(i)
                if (lab(i2, i) == 'Ni') ty = 1
                if (lab(i2, i) == 'Al') ty = 2
-               if (lab(i2, i) == 'O') ty = 3 ! NOTE EDITED
+               if (lab(i2, i) == 'O') ty = 3 
                do l = -lim, lim
                   do m = -lim, lim
                      do n = -lim, lim
@@ -236,6 +181,7 @@ contains
          end do
 !  call date_and_time(time=dts)
 !  write(*,*)i,' done ',dts
+         if (debug)  print *, confnames(i), model(i) 
       end do
 !$OMP END PARALLEL DO
 !write(*,*)model(31:35)
@@ -258,37 +204,39 @@ contains
          P3b = 0
       end if
       call Energies(P2b, PZ, P3b)
-      VN(1:4) = model(9:12)
-      VN(5:8) = model(1:4)
-      VN(9:12) = model(5:8)
-      VN(13:16) = model(31:34)
-      VN(17:24) = model(17:24)
-      VN(25:28) = model(26:29)
-      VN(29) = model(35)
-      VN(30:76) = model(36:82)
-      VN(77:78) = model(83:84)
-      VN(79:98) = model(85:104)
-      dE(1:98) = target(1:98) - VN(1:98)
+      ! VN(1:4) = model(9:12)
+      ! VN(5:8) = model(1:4)
+      ! VN(9:12) = model(5:8)
+      ! VN(13:16) = model(31:34)
+      ! VN(17:24) = model(17:24)
+      ! VN(25:28) = model(26:29)
+      ! VN(29) = model(35)
+      ! VN(30:76) = model(36:82)
+      ! VN(77:78) = model(83:84)
+      ! VN(79:98) = model(85:104)
+      VN(1:NConf) = model(1:NConf)
+      dE(1:Nconf) = target(1:Nconf) - VN(1:Nconf)
 !dE(3)=dE(3)/2.0
 !dE(7)=dE(7)/20.0
-      dE(7) = dE(7)/5.0
+      ! dE(7) = dE(7)/5.0
 !dE(9)=dE(9)/5.0
 !dE(11)=dE(11)/5.0
-      dE(80) = dE(11)/30
-      dE(1:78) = dE(1:78)/2.0
-      if (NoGas) then
-!  R=sum(dE(1:12)**2)+sum(dE(17:22)**2)+sum(dE(24:28)**2)
-         R = sum(dE(1:12)**2) + sum(dE(17:22)**2) + sum(dE(24:28)**2) + dE(77)**2 + dE(78)**2
-!  R=sum(dE(1:13)**2)+sum(dE(17:22)**2)+sum(dE(24:28)**2)
-      else
-!  R=sum(dE(13:16)**2+dE(29)**2)  ! wrong
-         if (NoDissoc) then
-            R = sum(dE(1:29)**2) + sum(dE(77:98)**2)
-         else
-            R = sum(dE(1:98)**2)
-         end if
+      ! dE(80) = dE(11)/30
+      ! dE(1:78) = dE(1:78)/2.0
+!       if (NoGas) then
+! !  R=sum(dE(1:12)**2)+sum(dE(17:22)**2)+sum(dE(24:28)**2)
+!          R = sum(dE(1:12)**2) + sum(dE(17:22)**2) + sum(dE(24:28)**2) + dE(77)**2 + dE(78)**2
+! !  R=sum(dE(1:13)**2)+sum(dE(17:22)**2)+sum(dE(24:28)**2)
+!       else
+! !  R=sum(dE(13:16)**2+dE(29)**2)  ! wrong
+!          if (NoDissoc) then
+!             R = sum(dE(1:29)**2) + sum(dE(77:98)**2)
+!          else
+      R = sum(dE(1:NConf)**2)
+      if (debug) print *, "R", R
+         ! end if
 !  R=sum(dE(29:76)**2)+sum(dE(13:16)**2)
-      end if
+      ! end if
    end function Cost
 
 end module fit
@@ -376,26 +324,30 @@ program fitter
    call LoadConfigs
 
    mf = Cost(par)
-   do nt = 1, 29
-      if (NoGas .and. any(nt == (/13, 14, 15, 16, 23, 29/))) then
-         write (*, *)
-      else
-         write (*, *) target(nt), VN(nt), VN(nt) - target(nt)
-      end if
-   end do
-   if (.not. NoGas) then
-      write (*, *)
-      do nt = 30, 76
-         write (*, *) target(nt), VN(nt), VN(nt) - target(nt)
-      end do
-   end if
-   do nt = 77, 78
-      write (*, *) target(nt), VN(nt), VN(nt) - target(nt)
-   end do
-   write (*, *)
-   do nt = 79, 98
-      write (*, '(i4,3g16.8)') nt, target(nt), VN(nt), VN(nt) - target(nt)
-   end do
+   ! do nt = 1, 29
+   !    if (NoGas .and. any(nt == (/13, 14, 15, 16, 23, 29/))) then
+   !       write (*, *)
+   !    else
+   !       write (*, *) target(nt), VN(nt), VN(nt) - target(nt)
+   !    end if
+   ! end do
+   ! if (.not. NoGas) then
+   !    write (*, *)
+   !    do nt = 30, 76
+   !       write (*, *) target(nt), VN(nt), VN(nt) - target(nt)
+   !    end do
+   ! end if
+   ! do nt = 77, 78
+   !    write (*, *) target(nt), VN(nt), VN(nt) - target(nt)
+   ! end do
+   ! write (*, *)
+   ! do nt = 79, 98
+   !    write (*, '(i4,3g16.8)') nt, target(nt), VN(nt), VN(nt) - target(nt)
+   ! end do
+   write (*,*) "TARGET", "VN", "DIFF"
+   do nt = 1, NConf
+      write (*,*) confnames(nt), target(nt), VN(nt), VN(nt) - target(nt)
+   enddo
 !stop
 
    T = 10.0

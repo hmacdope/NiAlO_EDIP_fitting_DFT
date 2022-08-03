@@ -28,7 +28,7 @@ def extract_eam_energy():
 
 
 os.chdir('../DATA')
-dirs = [d for d in os.listdir('.') if os.path.isdir(d) and d != '.git' ]
+dirs = [d for d in os.listdir('.') if os.path.isdir(d) and d not in ['.git', '.ipynb_checkpoints'  ]]
 dirs = sorted(dirs)
 
 all_configs = []
