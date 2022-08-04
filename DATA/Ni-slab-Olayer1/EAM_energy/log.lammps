@@ -27,7 +27,7 @@ Reading data file ...
   1 by 1 by 1 MPI processor grid
   reading atoms ...
   252 atoms
-  read_data CPU = 0.001 seconds
+  read_data CPU = 0.045 seconds
 
 # pair potential
 
@@ -58,9 +58,9 @@ Neighbor list info ...
 Per MPI rank memory allocation (min/avg/max) = 4.502 | 4.502 | 4.502 Mbytes
    Step          Temp          E_pair         E_mol          TotEng         Press     
          0   0             -1070.5441      0             -1070.5441     -1131.9041    
-Loop time of 3.167e-06 on 1 procs for 0 steps with 252 atoms
+Loop time of 3.711e-06 on 1 procs for 0 steps with 252 atoms
 
-126.3% CPU use with 1 MPI tasks x 1 OpenMP threads
+107.8% CPU use with 1 MPI tasks x 1 OpenMP threads
 
 Minimization stats:
   Stopping criterion = max iterations
@@ -79,7 +79,7 @@ Neigh   | 0          | 0          | 0          |   0.0 |  0.00
 Comm    | 0          | 0          | 0          |   0.0 |  0.00
 Output  | 0          | 0          | 0          |   0.0 |  0.00
 Modify  | 0          | 0          | 0          |   0.0 |  0.00
-Other   |            | 3.167e-06  |            |       |100.00
+Other   |            | 3.711e-06  |            |       |100.00
 
 Nlocal:            252 ave         252 max         252 min
 Histogram: 1 0 0 0 0 0 0 0 0 0
@@ -203,20 +203,20 @@ Per MPI rank memory allocation (min/avg/max) = 4.387 | 4.387 | 4.387 Mbytes
       9800   249.74261     -1068.8424      0             -1060.7397     -18556.486    
       9900   238.775       -1068.4653      0             -1060.7184     -15113.514    
      10000   238.82133     -1068.4737      0             -1060.7253     -11687.433    
-Loop time of 6.77557 on 1 procs for 10000 steps with 252 atoms
+Loop time of 6.70228 on 1 procs for 10000 steps with 252 atoms
 
-Performance: 1275.170 ns/day, 0.019 hours/ns, 1475.892 timesteps/s
-99.9% CPU use with 1 MPI tasks x 1 OpenMP threads
+Performance: 1289.113 ns/day, 0.019 hours/ns, 1492.029 timesteps/s
+100.0% CPU use with 1 MPI tasks x 1 OpenMP threads
 
 MPI task timing breakdown:
 Section |  min time  |  avg time  |  max time  |%varavg| %total
 ---------------------------------------------------------------
-Pair    | 6.4969     | 6.4969     | 6.4969     |   0.0 | 95.89
+Pair    | 6.428      | 6.428      | 6.428      |   0.0 | 95.91
 Neigh   | 0          | 0          | 0          |   0.0 |  0.00
-Comm    | 0.064204   | 0.064204   | 0.064204   |   0.0 |  0.95
-Output  | 0.17436    | 0.17436    | 0.17436    |   0.0 |  2.57
-Modify  | 0.021392   | 0.021392   | 0.021392   |   0.0 |  0.32
-Other   |            | 0.01866    |            |       |  0.28
+Comm    | 0.063325   | 0.063325   | 0.063325   |   0.0 |  0.94
+Output  | 0.17114    | 0.17114    | 0.17114    |   0.0 |  2.55
+Modify  | 0.021304   | 0.021304   | 0.021304   |   0.0 |  0.32
+Other   |            | 0.01855    |            |       |  0.28
 
 Nlocal:            252 ave         252 max         252 min
 Histogram: 1 0 0 0 0 0 0 0 0 0

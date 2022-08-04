@@ -6,6 +6,6 @@ Reading data file ...
   1 by 1 by 1 MPI processor grid
   reading atoms ...
   0 atoms
-  read_data CPU = 0.000 seconds
+  read_data CPU = 0.031 seconds
 ERROR: Incorrect args for pair coefficients (src/MANYBODY/pair_eam_alloy.cpp:108)
 Last command: pair_coeff * * Mishin-Ni-Al-2009.eam.alloy

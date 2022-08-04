@@ -6,7 +6,7 @@ Reading data file ...
   1 by 1 by 1 MPI processor grid
   reading atoms ...
   252 atoms
-  read_data CPU = 0.001 seconds
+  read_data CPU = 0.072 seconds
 WARNING: Using 'neigh_modify every 1 delay 0 check yes' setting during minimization (src/min.cpp:187)
 Neighbor list info ...
   update every 1 steps, delay 0 steps, check yes
@@ -26,9 +26,9 @@ Setting up cg style minimization ...
 Per MPI rank memory allocation (min/avg/max) = 4.501 | 4.501 | 4.501 Mbytes
    Step          Temp          E_pair         E_mol          TotEng         Press     
          0   0             -1076.8027      0             -1076.8027     -17014.279    
-Loop time of 3.197e-06 on 1 procs for 0 steps with 252 atoms
+Loop time of 4.497e-06 on 1 procs for 0 steps with 252 atoms
 
-125.1% CPU use with 1 MPI tasks x 1 OpenMP threads
+111.2% CPU use with 1 MPI tasks x 1 OpenMP threads
 
 Minimization stats:
   Stopping criterion = max iterations
@@ -47,7 +47,7 @@ Neigh   | 0          | 0          | 0          |   0.0 |  0.00
 Comm    | 0          | 0          | 0          |   0.0 |  0.00
 Output  | 0          | 0          | 0          |   0.0 |  0.00
 Modify  | 0          | 0          | 0          |   0.0 |  0.00
-Other   |            | 3.197e-06  |            |       |100.00
+Other   |            | 4.497e-06  |            |       |100.00
 
 Nlocal:            252 ave         252 max         252 min
 Histogram: 1 0 0 0 0 0 0 0 0 0
@@ -167,20 +167,20 @@ Per MPI rank memory allocation (min/avg/max) = 4.386 | 4.386 | 4.386 Mbytes
       9800   147.61748     -1071.6473      0             -1066.858      -22920.645    
       9900   154.39407     -1071.8679      0             -1066.8587     -19437.268    
      10000   156.80886     -1071.9535      0             -1066.8659     -16463.732    
-Loop time of 6.64242 on 1 procs for 10000 steps with 252 atoms
+Loop time of 6.50952 on 1 procs for 10000 steps with 252 atoms
 
-Performance: 1300.731 ns/day, 0.018 hours/ns, 1505.476 timesteps/s
+Performance: 1327.286 ns/day, 0.018 hours/ns, 1536.210 timesteps/s
 99.9% CPU use with 1 MPI tasks x 1 OpenMP threads
 
 MPI task timing breakdown:
 Section |  min time  |  avg time  |  max time  |%varavg| %total
 ---------------------------------------------------------------
-Pair    | 6.3604     | 6.3604     | 6.3604     |   0.0 | 95.75
+Pair    | 6.2343     | 6.2343     | 6.2343     |   0.0 | 95.77
 Neigh   | 0          | 0          | 0          |   0.0 |  0.00
-Comm    | 0.064492   | 0.064492   | 0.064492   |   0.0 |  0.97
-Output  | 0.17665    | 0.17665    | 0.17665    |   0.0 |  2.66
-Modify  | 0.021974   | 0.021974   | 0.021974   |   0.0 |  0.33
-Other   |            | 0.01889    |            |       |  0.28
+Comm    | 0.063889   | 0.063889   | 0.063889   |   0.0 |  0.98
+Output  | 0.17091    | 0.17091    | 0.17091    |   0.0 |  2.63
+Modify  | 0.021781   | 0.021781   | 0.021781   |   0.0 |  0.33
+Other   |            | 0.01862    |            |       |  0.29
 
 Nlocal:            252 ave         252 max         252 min
 Histogram: 1 0 0 0 0 0 0 0 0 0

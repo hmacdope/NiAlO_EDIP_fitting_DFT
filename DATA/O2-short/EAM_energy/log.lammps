@@ -27,7 +27,7 @@ Reading data file ...
   1 by 1 by 1 MPI processor grid
   reading atoms ...
   0 atoms
-  read_data CPU = 0.000 seconds
+  read_data CPU = 0.014 seconds
 
 # pair potential
 

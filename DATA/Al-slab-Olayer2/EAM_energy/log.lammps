@@ -27,7 +27,7 @@ Reading data file ...
   1 by 1 by 1 MPI processor grid
   reading atoms ...
   252 atoms
-  read_data CPU = 0.001 seconds
+  read_data CPU = 0.051 seconds
 
 # pair potential
 
@@ -58,9 +58,9 @@ Neighbor list info ...
 Per MPI rank memory allocation (min/avg/max) = 4.506 | 4.506 | 4.506 Mbytes
    Step          Temp          E_pair         E_mol          TotEng         Press     
          0   0             -807.2283       0             -807.2283       9160.8293    
-Loop time of 3.242e-06 on 1 procs for 0 steps with 252 atoms
+Loop time of 4.021e-06 on 1 procs for 0 steps with 252 atoms
 
-92.5% CPU use with 1 MPI tasks x 1 OpenMP threads
+124.3% CPU use with 1 MPI tasks x 1 OpenMP threads
 
 Minimization stats:
   Stopping criterion = max iterations
@@ -79,7 +79,7 @@ Neigh   | 0          | 0          | 0          |   0.0 |  0.00
 Comm    | 0          | 0          | 0          |   0.0 |  0.00
 Output  | 0          | 0          | 0          |   0.0 |  0.00
 Modify  | 0          | 0          | 0          |   0.0 |  0.00
-Other   |            | 3.242e-06  |            |       |100.00
+Other   |            | 4.021e-06  |            |       |100.00
 
 Nlocal:            252 ave         252 max         252 min
 Histogram: 1 0 0 0 0 0 0 0 0 0
@@ -203,20 +203,20 @@ Per MPI rank memory allocation (min/avg/max) = 4.391 | 4.391 | 4.391 Mbytes
       9800   331.82112     -808.19296      0             -797.42726     -856.98206    
       9900   331.83304     -808.2006       0             -797.43451     -1314.3577    
      10000   316.75162     -807.67792      0             -797.40114     -1924.7057    
-Loop time of 4.94412 on 1 procs for 10000 steps with 252 atoms
+Loop time of 4.98266 on 1 procs for 10000 steps with 252 atoms
 
-Performance: 1747.532 ns/day, 0.014 hours/ns, 2022.606 timesteps/s
-99.9% CPU use with 1 MPI tasks x 1 OpenMP threads
+Performance: 1734.013 ns/day, 0.014 hours/ns, 2006.960 timesteps/s
+99.7% CPU use with 1 MPI tasks x 1 OpenMP threads
 
 MPI task timing breakdown:
 Section |  min time  |  avg time  |  max time  |%varavg| %total
 ---------------------------------------------------------------
-Pair    | 4.6742     | 4.6742     | 4.6742     |   0.0 | 94.54
-Neigh   | 0.0052262  | 0.0052262  | 0.0052262  |   0.0 |  0.11
-Comm    | 0.053944   | 0.053944   | 0.053944   |   0.0 |  1.09
-Output  | 0.17237    | 0.17237    | 0.17237    |   0.0 |  3.49
-Modify  | 0.021575   | 0.021575   | 0.021575   |   0.0 |  0.44
-Other   |            | 0.01681    |            |       |  0.34
+Pair    | 4.7141     | 4.7141     | 4.7141     |   0.0 | 94.61
+Neigh   | 0.0054231  | 0.0054231  | 0.0054231  |   0.0 |  0.11
+Comm    | 0.05338    | 0.05338    | 0.05338    |   0.0 |  1.07
+Output  | 0.17124    | 0.17124    | 0.17124    |   0.0 |  3.44
+Modify  | 0.021742   | 0.021742   | 0.021742   |   0.0 |  0.44
+Other   |            | 0.01675    |            |       |  0.34
 
 Nlocal:            252 ave         252 max         252 min
 Histogram: 1 0 0 0 0 0 0 0 0 0
@@ -232,4 +232,4 @@ Dangerous builds = 1
 
 write_restart checkpoint.init
 System init for write_restart ...
-Total wall time: 0:00:04
+Total wall time: 0:00:05

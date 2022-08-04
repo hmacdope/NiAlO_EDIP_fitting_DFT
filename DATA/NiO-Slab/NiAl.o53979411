@@ -8,14 +8,14 @@ Warning: ieee_inexact is signaling
 FORTRAN STOP
 
 ======================================================================================
-                  Resource Usage on 2022-07-13 02:21:06:
-   Job Id:             50972500.gadi-pbs
+                  Resource Usage on 2022-08-03 23:31:43:
+   Job Id:             53979411.gadi-pbs
    Project:            y35
    Exit Status:        0
-   Service Units:      4.84
+   Service Units:      304.65
    NCPUs Requested:    12                     NCPUs Used: 12              
-                                           CPU Time Used: 00:08:02                                   
-   Memory Requested:   96.0GB                Memory Used: 5.01GB          
-   Walltime requested: 08:00:00            Walltime Used: 00:08:04        
-   JobFS requested:    250.0MB                JobFS used: 8.06MB          
+                                           CPU Time Used: 08:27:34                                   
+   Memory Requested:   96.0GB                Memory Used: 8.79GB          
+   Walltime requested: 20:00:00            Walltime Used: 08:27:45        
+   JobFS requested:    250.0MB                JobFS used: 8.07MB          
 ======================================================================================
