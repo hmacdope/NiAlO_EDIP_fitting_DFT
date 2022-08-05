@@ -5,7 +5,7 @@ cd ../DATA
 for d in */ ; do
     echo "$d looking"
     cd $d
-    cp ../extract_last_config.py .
+    cp ../../scripts/extract_last_config.py .
     python3 extract_last_config.py
     cd ../
 done
