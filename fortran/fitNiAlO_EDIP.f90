@@ -224,11 +224,11 @@ contains
       ! dE(80) = dE(11)/30
       ! dE(1:78) = dE(1:78)/2.0
 !       if (NoGas) then
-! !  R=sum(dE(1:12)**2)+sum(dE(17:22)**2)+sum(dE(24:28)**2)
+!   R=sum(dE(1:12)**2)+sum(dE(17:22)**2)+sum(dE(24:28)**2)
 !          R = sum(dE(1:12)**2) + sum(dE(17:22)**2) + sum(dE(24:28)**2) + dE(77)**2 + dE(78)**2
-! !  R=sum(dE(1:13)**2)+sum(dE(17:22)**2)+sum(dE(24:28)**2)
+!  R=sum(dE(1:13)**2)+sum(dE(17:22)**2)+sum(dE(24:28)**2)
 !       else
-! !  R=sum(dE(13:16)**2+dE(29)**2)  ! wrong
+!   R=sum(dE(13:16)**2+dE(29)**2)  ! wrong
 !          if (NoDissoc) then
 !             R = sum(dE(1:29)**2) + sum(dE(77:98)**2)
 !          else
@@ -344,7 +344,7 @@ program fitter
    ! do nt = 79, 98
    !    write (*, '(i4,3g16.8)') nt, target(nt), VN(nt), VN(nt) - target(nt)
    ! end do
-   write (*,*) "TARGET", "VN", "DIFF"
+   print *, "TARGET", "VN", "DIFF"
    do nt = 1, NConf
       write (*,*) confnames(nt), target(nt), VN(nt), VN(nt) - target(nt)
    enddo
