@@ -204,39 +204,13 @@ contains
          P3b = 0
       end if
       call Energies(P2b, PZ, P3b)
-      ! VN(1:4) = model(9:12)
-      ! VN(5:8) = model(1:4)
-      ! VN(9:12) = model(5:8)
-      ! VN(13:16) = model(31:34)
-      ! VN(17:24) = model(17:24)
-      ! VN(25:28) = model(26:29)
-      ! VN(29) = model(35)
-      ! VN(30:76) = model(36:82)
-      ! VN(77:78) = model(83:84)
-      ! VN(79:98) = model(85:104)
+
       VN(1:NConf) = model(1:NConf)
       dE(1:Nconf) = target(1:Nconf) - VN(1:Nconf)
-!dE(3)=dE(3)/2.0
-!dE(7)=dE(7)/20.0
-      ! dE(7) = dE(7)/5.0
-!dE(9)=dE(9)/5.0
-!dE(11)=dE(11)/5.0
-      ! dE(80) = dE(11)/30
-      ! dE(1:78) = dE(1:78)/2.0
-!       if (NoGas) then
-!   R=sum(dE(1:12)**2)+sum(dE(17:22)**2)+sum(dE(24:28)**2)
-!          R = sum(dE(1:12)**2) + sum(dE(17:22)**2) + sum(dE(24:28)**2) + dE(77)**2 + dE(78)**2
-!  R=sum(dE(1:13)**2)+sum(dE(17:22)**2)+sum(dE(24:28)**2)
-!       else
-!   R=sum(dE(13:16)**2+dE(29)**2)  ! wrong
-!          if (NoDissoc) then
-!             R = sum(dE(1:29)**2) + sum(dE(77:98)**2)
-!          else
+
       R = sum(dE(1:NConf)**2)
       if (debug) print *, "R", R
-         ! end if
-!  R=sum(dE(29:76)**2)+sum(dE(13:16)**2)
-      ! end if
+
    end function Cost
 
 end module fit
@@ -262,9 +236,7 @@ program fitter
    par = 0
    par(17:15 + 3*3:3) = 4
 
-!par(1:24)=(/3.63208961,15.7711592,3.39307761,4.89977002E-02,8.99143410,6.43206263,1.83402944,&
-!2.43297362,14.9088411,6.89796070E-05,3.18342257,2.52107453,0.796471894,2.06707790E-03,6.54625082,&
-!8.81447697,2.52026415,0.905645967,29.9908390,1.87918830,0.218855426,19.1351109,7.70084858,2.47109160E-02/)
+
 
    par = (/6.270725, 0.9256532, 1.529872, 1.3633298E-02, 0.2077398, &
            17.27714, 1.177238, 10.00000, 3.2836724E-02, 2.173588, &
@@ -278,10 +250,6 @@ program fitter
            5596.842, 2.876048, -2.923217, 156.8400, 9.0139635E-02, &
            0.9942751/)
 
-!par(11:15)=(/13.853,0.76143,4.7753,0.13113,1.1231/)
-!par(22:24)=(/1.4956,7.2177,0.25882/)
-!par(31:33)=(/28.877,3.3538,0.17964/)
-!par(52:60)=(/2.3767,8.7378,0.47089,10.766,0.59636,-0.31442,9.9665,0.68064,0.23313/)
 
    lb = 0
 !real(kind=8),dimension(5,3),intent(in)::P2b  ! A:1, B:2, rho:3, beta:4, sigma:5
@@ -311,47 +279,18 @@ program fitter
    par = max(par, lb + 1.0e-8)
    par = min(par, ub - 1.0e-8)
 
-!do nt=1,3
-!  do i=0,100
-!    rr=1+(7-1)/100.0_8*i
-!    write(20+nt,*)rr,par(nt)/rr**(7+floor(par(3+nt))) &
-!                                +par(6+nt)*par(9)/rr*exp(-rr/par(10)) &
-!                                -par(10+nt)/rr**4*exp(-rr/par(14)) &
-!                                -par(14+nt)/rr**6
-!  enddo
-!enddo
 
    call LoadConfigs
 
    mf = Cost(par)
-   ! do nt = 1, 29
-   !    if (NoGas .and. any(nt == (/13, 14, 15, 16, 23, 29/))) then
-   !       write (*, *)
-   !    else
-   !       write (*, *) target(nt), VN(nt), VN(nt) - target(nt)
-   !    end if
-   ! end do
-   ! if (.not. NoGas) then
-   !    write (*, *)
-   !    do nt = 30, 76
-   !       write (*, *) target(nt), VN(nt), VN(nt) - target(nt)
-   !    end do
-   ! end if
-   ! do nt = 77, 78
-   !    write (*, *) target(nt), VN(nt), VN(nt) - target(nt)
-   ! end do
-   ! write (*, *)
-   ! do nt = 79, 98
-   !    write (*, '(i4,3g16.8)') nt, target(nt), VN(nt), VN(nt) - target(nt)
-   ! end do
+
    print *, "TARGET", "VN", "DIFF"
    do nt = 1, NConf
       write (*,*) confnames(nt), target(nt), VN(nt), VN(nt) - target(nt)
    enddo
-!stop
 
    T = 10.0
-   RT = 0.92
+   RT = 0.85
    etol = 2.0e-3
    ns = 25
    nt = 150
@@ -369,35 +308,9 @@ program fitter
    par = po
 
    mf = Cost(par)
-   do nt = 1, 29
-      if (NoGas .and. any(nt == (/13, 14, 15, 16, 23, 29/))) then
-         write (*, *)
-      else
-         write (*, '(i4,3g16.8)') nt, target(nt), VN(nt), VN(nt) - target(nt)
-      end if
-   end do
-   if (.not. NoGas) then
-      write (*, *)
-      do nt = 30, 76
-         write (*, '(i4,3g16.8)') nt, target(nt), VN(nt), VN(nt) - target(nt)
-      end do
-   end if
-   do nt = 77, 78
-      write (*, '(i4,3g16.8)') nt, target(nt), VN(nt), VN(nt) - target(nt)
-   end do
-   write (*, *)
-   do nt = 79, 98
-      write (*, '(i4,3g16.8)') nt, target(nt), VN(nt), VN(nt) - target(nt)
-   end do
-
-!do nt=1,3
-!  do i=0,100
-!    rr=1+(5-1)/100.0_8*i
-!    write(23+nt,*)rr,par(nt)/rr**(7+floor(par(3+nt))) &
-!                                +14.3996434*par(6+nt)*par(9)/rr*exp(-rr/par(10)) &
-!                                -par(10+nt)/rr**4*exp(-rr/par(14)) &
-!                                -par(14+nt)/rr**6
-!  enddo
-!enddo
+   print *, "TARGET", "VN", "DIFF"
+   do nt = 1, NConf
+      write (*,*) confnames(nt), target(nt), VN(nt), VN(nt) - target(nt)
+   enddo
 
 end program fitter
