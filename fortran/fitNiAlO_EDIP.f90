@@ -293,7 +293,7 @@ program fitter
    RT = 0.85
    etol = 2.0e-3
    ns = 25
-   nt = 150
+   nt = 100 
 !  mev=2000000
    mev = huge(1)
    cc = 2
