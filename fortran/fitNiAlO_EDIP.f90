@@ -1,13 +1,13 @@
 module fit
    implicit none
    integer, parameter::np = 51
-   integer, parameter::MaxAt = 300
+   integer, parameter::MaxAt = 600
    integer, parameter::MaxConf = 110
 
    logical, parameter::NoGas = .false., RefN2 = .false., TwoBodyOnly = .false., NoDissoc = .false.
    real(kind=8), dimension(3, MaxAt, MaxConf)::x
    real(kind=8), dimension(3, 3, MaxConf)::Q
-   real(kind=8), dimension(MaxConf)::En, model, target, EAM, VN
+   real(kind=8), dimension(MaxConf)::En, model, twobody, threebody, target, EAM, VN
    character(len=20), dimension(MaxConf)::confnames
    logical, parameter::debug = .false.
    integer, dimension(MaxConf)::NAt
@@ -81,19 +81,14 @@ contains
       integer::ty, ty2, lim
       character(len=10)::dts
       model = 0
+      twobody = 0
+      threebody=0
       if (debug) print *, "Computing Energies", ""
 !$OMP PARALLEL DO SCHEDULE(dynamic) PRIVATE(ty,ty2,lim,r,r1,r2,rv1,rv2,cth,dts,tau,Qz,Z,f,h)
       do i = 1, NConf
+      if (debug) print *, "CONF", i
          ty = 0
          lim = 1
-!if (.not.any(i==(/31,32,33,34,35/))) cycle
-         if (any(i == (/13, 14, 15, 16, 25, 30/))) cycle
-!  call date_and_time(time=dts)
-!  write(*,*)i,'start ',dts
-!  if (NoGas.and.((i==23).or.(i==25).or.(i>=31))) cycle
-         if (NoGas .and. ((i == 23) .or. (i == 25) .or. ((i >= 31) .and. (i < 83)) .or. (i >= 79))) cycle
-         if (NoDissoc .and. (i >= 36) .and. (i <= 82)) cycle
-         if ((i == 83) .or. (i == 84)) lim = 6
          do i1 = 1, NAt(i)
             if (lab(i1, i) /= 'O') cycle
             Z = 0
@@ -132,6 +127,8 @@ contains
                         r = sqrt(r)
                         model(i) = model(i) + P2b(1, ty)*((P2b(2, ty)/r)**P2b(3, ty) - exp(-P2b(4, ty)*Z**2)) &
                                    *exp(P2b(5, ty)/(r - PZ(2, ty)))
+                        ! twobody(i) = twobody(i) + P2b(1, ty)*((P2b(2, ty)/r)**P2b(3, ty) - exp(-P2b(4, ty)*Z**2)) &
+                        !            *exp(P2b(5, ty)/(r - PZ(2, ty)))
                      end do
                   end do
                end do
@@ -147,29 +144,27 @@ contains
                   do m1 = -lim, lim
                      do n1 = -lim, lim
                         r = sum((x(:, i1, i) - x(:, i2, i) - matmul(Q(:, :, i), real((/l1, m1, n1/), 8)))**2)
-                        if (r > PZ(2, ty)) cycle
+                        if (r > PZ(2, ty)**2) cycle ! FIXED
                         do i3 = i2 + 1, NAt(i)
-!              if (lab(i2,i)=='Ni') ty2=1
-!              if (lab(i2,i)=='Al') ty2=2
-!              if (lab(i2,i)=='N') ty2=3
                            if (i1 == i3) cycle
                            if (lab(i2, i) /= lab(i3, i)) cycle
                            do l2 = -lim, lim
                               do m2 = -lim, lim
                                  do n2 = -lim, lim
                                     r = sum((x(:, i1, i) - x(:, i3, i) - matmul(Q(:, :, i), real((/l2, m2, n2/), 8)))**2)
-                                    if (r > PZ(2, ty)) cycle
+                                    if (r > PZ(2, ty)**2) cycle ! FIXED
                                     rv1 = x(:, i2, i) + matmul(Q(:, :, i), real((/l1, m1, n1/), 8)) - x(:, i1, i)
                                     rv2 = x(:, i3, i) + matmul(Q(:, :, i), real((/l2, m2, n2/), 8)) - x(:, i1, i)
                                     ! we have X-N-X vectors
                                     r1 = sqrt(sum(rv1**2))
                                     r2 = sqrt(sum(rv2**2))
                                     cth = sum(rv1*rv2)/r1/r2
-!real(kind=8),dimension(9,3),intent(in)::P3b  ! gamma:1, lambda:2, eta:3, Q0:4, mu:5, u1-u4:6-9
                                     Qz = P3b(4, ty)*exp(-P3b(5, ty)*Z)
                                     tau = P3b(6, ty) + P3b(7, ty)*(P3b(8, ty)*exp(-P3b(9, ty)*Z) - exp(-2*P3b(9, ty)*Z))
                                     h = P3b(2, ty)*((1 - exp(-Qz*(cth + tau)**2)) + P3b(3, ty)*Qz*(cth + tau)**2)
                                     model(i) = model(i) + exp(P3b(1, ty)/(r1 - PZ(2, ty)))*exp(P3b(1, ty)/(r2 - PZ(2, ty)))*h
+                                    ! threebody(i) = threebody(i)  +&
+                                    !         exp(P3b(1, ty)/(r1 - PZ(2, ty)))*exp(P3b(1, ty)/(r2 - PZ(2, ty)))*h
                                  end do
                               end do
                            end do
@@ -179,13 +174,11 @@ contains
                end do
             end do
          end do
-!  call date_and_time(time=dts)
-!  write(*,*)i,' done ',dts
-         if (debug)  print *, confnames(i), model(i) 
+         if (debug) then
+           print *, confnames(i), model(i), twobody(i), threebody(i) 
+         end if
       end do
 !$OMP END PARALLEL DO
-!write(*,*)model(31:35)
-!stop
    end subroutine Energies
 
    function Cost(pa) result(R)
@@ -194,7 +187,6 @@ contains
       real(kind=8), dimension(5, 3)::P2b  ! A:1, B:2, rho:3, beta:4, sigma:5
       real(kind=8), dimension(3, 3)::PZ   ! alpha:1, cutoffA:2, cutoffCfrac:3
       real(kind=8), dimension(9, 3)::P3b  ! gamma:1, lambda:2, eta:3, Q0:4, mu:5, u1-u4:6-9
-!real(kind=8),dimension(7)::B,ctb,C,g,r0
       real(kind=8), dimension(MaxConf)::dE
       P2b = reshape(pa(1:15), (/5, 3/))
       PZ = reshape(pa(16:24), (/3, 3/))
@@ -209,7 +201,7 @@ contains
       dE(1:Nconf) = target(1:Nconf) - VN(1:Nconf)
 
       R = sum(dE(1:NConf)**2)
-      if (debug) print *, "R", R
+      if (debug) print *, "R2", R
 
    end function Cost
 
@@ -238,17 +230,18 @@ program fitter
 
 
 
-   par = (/6.270725, 0.9256532, 1.529872, 1.3633298E-02, 0.2077398, &
-           17.27714, 1.177238, 10.00000, 3.2836724E-02, 2.173588, &
-           77.14455, 0.8241709, 9.054739, 0.1729968, 4.370404, &
-           58.50896, 2.870127, 0.8597835, 4.436456, 3.453213, &
-           0.4651635, 4.199774, 3.297550, 0.1998602, 6.712620, &
-           97.43101, 24.25369, 41.67469, 0.2340235, -0.6057560, &
-           61.09523, 1.224794, 1.293125, 3.812594, 0.7535967, &
-           8.970005, 8499.998, 0.8680952, -9.8761562E-03, 349.9999, &
-           5.6327466E-02, 1.336010, 6.535113, 8.229236, 1.579276, &
-           5596.842, 2.876048, -2.923217, 156.8400, 9.0139635E-02, &
-           0.9942751/)
+   par = (/ &
+      36.45284,      0.6791469,      0.1594402,      2.5485258E-03,  0.5501664, &
+   14.08193,       1.186439,       9.999864,      3.0858677E-02,   1.889386, &
+   78.99020,      0.8303978,       8.949286,      0.1601516,       4.185799, &
+   149.9806,       3.001274,      0.8021623,       4.312808,       3.453207, &
+  0.4926753,       4.381870,       3.178649,      0.2459254,       1.524090, &
+   4.225363,      0.7100192,       3336.155,      0.9924282,      -1.327979, &
+   29.63824,      0.4598414,      0.3445069,       3.745907,       32.96537, &
+   12.42801,       140.7911,      0.8926755,     -1.4043217E-02,   348.0841, &
+  5.7823181E-02,   1.309372,       2.053574,      28.12451,       18.77102, &
+   4072.389,       4.728853,      -2.370404,       23.91353,      0.6465032, &
+  0.3588246/)
 
 
    lb = 0
@@ -292,9 +285,8 @@ program fitter
    T = 10.0
    RT = 0.85
    etol = 2.0e-3
-   ns = 25
-   nt = 100 
-!  mev=2000000
+   ns = 10 
+   nt = 40
    mev = huge(1)
    cc = 2
    s1 = 1011
