@@ -1,0 +1,22 @@
+Loading vasp/6.3.1
+  Loading requirement: openmpi/4.1.3
+Warning: ieee_invalid is signaling
+Warning: ieee_divide_by_zero is signaling
+Warning: ieee_underflow is signaling
+Warning: ieee_inexact is signaling
+FORTRAN STOP
+
+======================================================================================
+                  Resource Usage on 2022-09-12 19:54:41:
+   Job Id:             57724649.gadi-pbs
+   Project:            q95
+   Exit Status:        0
+   Service Units:      137.18
+   NCPUs Requested:    12                     NCPUs Used: 12              
+                                           CPU Time Used: 03:48:33        
+   Memory Requested:   96.0GB                Memory Used: 7.99GB          
+   NGPUs Requested:    1                 GPU Utilisation: 81%             
+                                         GPU Memory Used: 9.61GB          
+   Walltime requested: 20:00:00            Walltime Used: 03:48:38        
+   JobFS requested:    250.0MB                JobFS used: 8.07MB          
+======================================================================================

@@ -1,5 +1,4 @@
 #/bin/bash
-#PBS -P y35
 #PBS -q gpuvolta
 #PBS -l ncpus=12
 #PBS -l ngpus=1
@@ -10,10 +9,22 @@
 #PBS -N NiAl
 #PBS -lstorage=scratch/y35
 
-module load vasp/6.2.1
+module load vasp
 
 cd $PBS_O_WORKDIR
 
 mpirun -np $PBS_NGPUS --map-by ppr:1:numa vasp_std-gpu > vasp.out
 
+#mkdir Restart01
+#cp INCAR KPOINTS POTCAR WAVECAR Restart01
+#cd Restart01
+#cp ../CONTCAR POSCAR
+##mpirun vasp_gpu > vasp.out
+#cd ..
+
+#cp -rp Restart01 Restart02
+#cd Restart02
+#cp CONTCAR POSCAR
+#mpirun vasp_gpu > vasp.out
+#cd ..
 
