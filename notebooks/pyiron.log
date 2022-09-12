@@ -2,3 +2,7 @@
 2022-08-05 08:45:04,060 - pyiron_log - WARNING - Unable to parse the vasprun.xml file. Will attempt to get data from OUTCAR
 2022-08-05 08:50:13,640 - pyiron_log - WARNING - Unable to parse the vasprun.xml file. Will attempt to get data from OUTCAR
 2022-08-05 08:50:19,310 - pyiron_log - WARNING - Unable to parse the vasprun.xml file. Will attempt to get data from OUTCAR
+2022-09-12 15:05:38,705 - pyiron_log - WARNING - Unable to parse the vasprun.xml file. Will attempt to get data from OUTCAR
+2022-09-12 15:05:47,327 - pyiron_log - WARNING - Unable to parse the vasprun.xml file. Will attempt to get data from OUTCAR
+2022-09-12 15:08:30,477 - pyiron_log - WARNING - Unable to parse the vasprun.xml file. Will attempt to get data from OUTCAR
+2022-09-12 15:08:36,182 - pyiron_log - WARNING - Unable to parse the vasprun.xml file. Will attempt to get data from OUTCAR
