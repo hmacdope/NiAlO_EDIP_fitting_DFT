@@ -1,0 +1,16 @@
+#!/bin/bash
+#PBS -q normal
+#PBS -l ncpus=24
+#PBS -l walltime=40:00:00
+#PBS -l mem=26GB
+#PBS -l jobfs=500Mb
+#PBS -j oe
+#PBS -N NiAlN-fit
+#PBS -P y35
+
+cd $PBS_O_WORKDIR
+
+export OMP_NUM_THREADS=24
+
+./fitter_openmp > out
+
