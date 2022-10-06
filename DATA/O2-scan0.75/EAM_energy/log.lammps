@@ -1,0 +1,35 @@
+LAMMPS (23 Jun 2022 - Update 1)
+
+################################################################################
+# LAMMPS input file                                                            #
+#                                                                              #
+# Prototype run for single point potential                                     #
+#                                                                              #
+# richard terrett, 2018                                                        #
+#                                                                              #
+################################################################################
+
+# System init
+
+units      metal
+dimension  3
+boundary   p p p
+atom_style atomic
+timestep   0.01
+
+# read data
+box tilt large
+read_data O2_scan_0.75_no_ox_lmp.data
+Reading data file ...
+  orthogonal box = (0 0 0) to (14.5 14.5 14.5)
+  1 by 1 by 1 MPI processor grid
+  reading atoms ...
+  0 atoms
+  read_data CPU = 0.001 seconds
+
+# pair potential
+
+pair_style eam/alloy
+pair_coeff * * Mishin-Ni-Al-2009.eam.alloy
+ERROR: Incorrect args for pair coefficients (src/MANYBODY/pair_eam_alloy.cpp:108)
+Last command: pair_coeff * * Mishin-Ni-Al-2009.eam.alloy

@@ -1,0 +1,15 @@
+Scan_Duplicate/O4_scan_2.25/O4.data (written by ASE) 
+
+4 	 atoms 
+1  atom types
+0.0                    14.5  xlo xhi
+0.0                    14.5  ylo yhi
+0.0                    14.5  zlo zhi
+
+
+Atoms 
+
+     1   1                       0                       0                       0
+     2   1      1.2070000000000001                       0                       0
+     3   1                       0                       0                    2.25
+     4   1      1.2070000000000001                       0                    2.25
