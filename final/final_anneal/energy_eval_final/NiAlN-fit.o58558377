@@ -1,0 +1,14 @@
+=>> PBS: job killed: walltime 72051 exceeded limit 72000
+
+======================================================================================
+                  Resource Usage on 2022-09-22 11:53:55:
+   Job Id:             58558377.gadi-pbs
+   Project:            y35
+   Exit Status:        271 (Linux Signal 15 SIGTERM Termination)
+   Service Units:      960.83
+   NCPUs Requested:    24                     NCPUs Used: 24              
+                                           CPU Time Used: 182:02:38       
+   Memory Requested:   26.0GB                Memory Used: 6.63MB          
+   Walltime requested: 20:00:00            Walltime Used: 20:01:02        
+   JobFS requested:    500.0MB                JobFS used: 0B              
+======================================================================================
